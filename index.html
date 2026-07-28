@@ -21,6 +21,7 @@
   </script>
   <!-- End Matomo Code -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -67,6 +68,10 @@
       background: rgba(10,15,30,0.6); backdrop-filter: blur(8px);
     }
     .header-links a:hover { color: #f1f5f9; border-color: rgba(255,255,255,0.3); background: rgba(10,15,30,0.85); }
+    .header-links .icon-link {
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; line-height: 1; padding: 6px 9px;
+    }
     .about-btn {
       font-size: 0.7rem; color: #94a3b8; cursor: pointer;
       padding: 4px 10px; border: 1px solid rgba(255,255,255,0.15);
@@ -308,6 +313,7 @@
   <div class="header-sub">Is it legal to pay a ransomware demand in <strong>your country?</strong></div>
   <div class="header-links">
     <button class="about-btn" id="about-btn">About</button>
+    <a class="icon-link" href="https://github.com/JMousqueton/canipay" target="_blank" rel="noopener" title="View source on GitHub" aria-label="View source on GitHub"><i class="fa-brands fa-github"></i></a>
     <a href="https://www.ransomware.live" target="_blank" rel="noopener">ransomware.live ↗</a>
   </div>
 </header>
