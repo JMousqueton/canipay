@@ -84,7 +84,7 @@ This is not legal advice, and the dataset explicitly excludes analysis of paymen
 No build step required — serve the directory with any static file server and open it in a browser, e.g.:
 
 ```bash
-git clone https://github.com/jmousqueton/canipay
+git clone https://github.com/JMousqueton/canipay
 cd canipay
 python3 -m http.server 8000
 # then open http://localhost:8000
