@@ -1,6 +1,7 @@
 {
   "AUS": {
     "name": "Australia",
+    "iso2": "AU",
     "status": "report",
     "info": "Paying a ransom is not illegal in Australia, but mandatory reporting is in force under the Cyber Security Act 2024. Two categories must report: critical infrastructure asset entities (per the Security of Critical Infrastructure Act 2018), and entities carrying on business in Australia with annual turnover of AUD 3 million or more. Reporting is required only when a ransom or extortion payment is actually made (directly or via a third party, including through international offices) — a demand alone with no payment does not trigger reporting. Reports go to the Australian Signals Directorate (ASD) within 72 hours. Failure to report: up to 60 penalty units (currently AUD 19,800). Home Affairs took an 'education first' approach until 31 December 2025; active enforcement began in 2026. Sanctions and anti-money-laundering laws also apply.",
     "citations": [
@@ -20,6 +21,7 @@
   },
   "CAN": {
     "name": "Canada",
+    "iso2": "CA",
     "status": "legal",
     "info": "While there are financial and ethical considerations at play, paying a ransom to a criminal is, generally speaking, not illegal in Canada. However, it is a crime to give financial aid to designated individuals and organizations that are deemed terrorists or otherwise on applicable sanctions lists or from embargoed countries. Entities considering paying a ransom should conduct due-diligence and contemporaneously document their findings in order to show that they undertook reasonable steps to ascertain the identity of the attackers. Most penalties for violating Canadian sanctions include knowledge qualifiers, so payors should be in a position to demonstrate the steps they took to ensure that a ransom payment did not violate such provisions. Canadian organizations with ties to the US should be acutely aware of OFAC risks.",
     "citations": [
@@ -31,6 +33,7 @@
   },
   "CHE": {
     "name": "Switzerland",
+    "iso2": "CH",
     "status": "legal",
     "info": "According to the Swiss Criminal Code, paying a ransom is not per se a criminal offense. But it might have legal consequences for other reasons.",
     "citations": [
@@ -42,6 +45,7 @@
   },
   "DEU": {
     "name": "Germany",
+    "iso2": "DE",
     "status": "legal",
     "info": "As in the United States, paying a ransom is not in and of itself a criminal offense in Germany. However, the US sanctions regime may also apply to German companies and therefore the relevant considerations should be taken into account on a case-by-case basis. NIS2 transposed via national law imposes incident reporting obligations on essential and important entities.",
     "citations": [
@@ -53,6 +57,7 @@
   },
   "FRA": {
     "name": "France",
+    "iso2": "FR",
     "status": "legal",
     "info": "Under French law, no legal text formally prohibits the payment of a ransom in the event of a ransomware attack. However, paying a ransom to terrorist organisations or sanctioned persons exposes the victim to criminal and administrative charges under terrorism financing (Art. 421-2-2 Criminal Code) and money laundering (Art. 324-1) laws. Penalties: up to 10 years imprisonment and EUR 1,875,000 fines; administrative sanctions up to EUR 100M or 10% of turnover. Important: since LOPMI (January 2023), to claim insurance coverage for a ransom payment, organisations must file a criminal complaint with authorities within 72 hours of discovering the attack.",
     "citations": [
@@ -68,6 +73,7 @@
   },
   "GBR": {
     "name": "United Kingdom",
+    "iso2": "GB",
     "status": "complicated",
     "info": "No blanket ban on ransom payments. In July 2025 the government proposed banning ransomware payments by public sector bodies (NHS, local councils, schools) and operators of critical national infrastructure (CNI), plus a 'payment prevention' pre-notification regime for other organisations. However, as the implementing vehicle — the Cyber Security and Resilience Bill — passed the House of Commons on 25 June 2026 and moved to the House of Lords, it did NOT include the ransomware payment ban or the pre-payment notification mechanism; those measures were dropped from the Bill during its passage. The Bill instead focuses on expanding NIS-style incident reporting duties (24-hour initial notification) to managed service providers, data centres, and other designated critical suppliers, with fines up to GBP 17 million or 4% of global turnover. A separate, standalone ransomware payment ban remains possible but is not currently in force or scheduled. Pre-existing exposure remains: under s15(3) and s17 of the Terrorism Act 2000, a party is liable if they knew or had reasonable cause to suspect funds would be used for terrorism, plus OFSI sanctions obligations. HMG does not condone making ransomware payments.",
     "citations": [
@@ -91,6 +97,7 @@
   },
   "NOR": {
     "name": "Norway",
+    "iso2": "NO",
     "status": "legal",
     "info": "Although no explicit legal guidance has been found, reading and reviewing the Norwegian National Security Authority gives the impression that although they strongly encourage against paying ransoms, it is not technically illegal.",
     "citations": [
@@ -102,6 +109,7 @@
   },
   "SGP": {
     "name": "Singapore",
+    "iso2": "SG",
     "status": "legal",
     "info": "There are no specific prohibitions against the payment of ransom in Singapore. However, obligations and/or offences under various sanctions and terrorism financing laws (such as the Terrorism (Suppression of Financing) Act, and the United Nations Act) and anti-money laundering laws (such as the Corruption, Drug Trafficking and Other Serious Crimes (Confiscation of Benefits) Act) may be relevant to consider. Ethical issues may also arise in the decision matrix as to whether ransomware payments should be made in any particular case.",
     "citations": [
@@ -113,6 +121,7 @@
   },
   "ZAF": {
     "name": "South Africa",
+    "iso2": "ZA",
     "status": "legal",
     "info": "Legally there is no prohibition from paying a ransom, but consideration should be given to whether such an entity or person to whom the ransom payment is being made is sanctioned or a terrorist group. In practice, the identity of the perpetrator might not be ascertainable — thus it is important for businesses to conduct necessary risk assessments before making such payments and have regard to their data protection obligations to report data breaches to the relevant parties.",
     "citations": [
@@ -124,6 +133,7 @@
   },
   "NZL": {
     "name": "New Zealand",
+    "iso2": "NZ",
     "status": "complicated",
     "info": "The New Zealand Government strongly discourages the payment of ransoms to cybercriminals, and urges all victims to report any cyber ransom incidents to the relevant agencies, regardless of whether a ransom is paid. Cabinet has agreed that government agencies do not pay cyber ransoms.",
     "citations": [
@@ -135,6 +145,7 @@
   },
   "USA": {
     "name": "United States",
+    "iso2": "US",
     "status": "complicated",
     "info": "There is no federal law banning ransom payments outright. However, OFAC may impose civil penalties for sanctions violations on a strict-liability basis — even if the payer did not know the recipient was sanctioned. The federal government strongly discourages all payments. Federal reporting is tightening but not yet in force: the CIRCIA rule (Cyber Incident Reporting for Critical Infrastructure Act of 2022) will eventually compel over 300,000 critical infrastructure owners, operators, and suppliers to report attacks within 72 hours and ransom payments within 24 hours — but CISA has repeatedly missed its own deadlines (originally due October 2025, pushed to May 2026, then to September 2026), so as of mid-2026 the final rule still has not been published. State-level laws vary significantly; see the breakdown below.",
     "stateDetails": [
@@ -407,6 +418,7 @@
   },
   "NLD": {
     "name": "Netherlands",
+    "iso2": "NL",
     "status": "legal",
     "info": "No explicit prohibition on paying ransoms in the Netherlands. The Netherlands explicitly rejected proposals to ban ransom payments. Dutch DPA and Dutch Police actively discourage payment. Ransomware incidents involving personal data must be reported to the Dutch DPA within 72 hours (GDPR). Significant incidents affecting essential services must be notified to the Minister of Justice and Safety. NIS2 transposition (Cybersecurity Act) expected 2026.",
     "citations": [
@@ -422,6 +434,7 @@
   },
   "BEL": {
     "name": "Belgium",
+    "iso2": "BE",
     "status": "report",
     "info": "No prohibition on paying ransoms in Belgium. However, Belgium's NIS2 transposition (via the Cybersecurity Centre Belgium) is among Europe's most advanced: the mandatory incident reporting form explicitly requires entities to state whether a ransom was paid and to whom. Incident reporting deadlines: 24-hour early warning, 72-hour full report. Fines up to EUR 10 million or 2% of global turnover for non-compliance.",
     "citations": [
@@ -437,6 +450,7 @@
   },
   "ESP": {
     "name": "Spain",
+    "iso2": "ES",
     "status": "legal",
     "info": "No law prohibiting ransom payments in Spain. A Cybersecurity Coordination and Governance Law draft was approved by the government in January 2025 and is going through Parliament. Current framework: early warning to INCIBE-CERT or CCN-CERT within 24 hours, incident notification within 72 hours, final report within 1 month.",
     "citations": [
@@ -452,6 +466,7 @@
   },
   "ITA": {
     "name": "Italy",
+    "iso2": "IT",
     "status": "legal",
     "info": "No specific law banning ransom payments in Italy. NIS2 transposed via Legislative Decree No. 138/2024. ACN (Agenzia per la Cybersicurezza Nazionale) is the single competent authority. Incident reporting (\"24/72/30 rule\"): 24-hour early warning; 72-hour initial notification; final report within 30 days. Fines up to EUR 10 million or 2% of global turnover.",
     "citations": [
@@ -463,6 +478,7 @@
   },
   "SWE": {
     "name": "Sweden",
+    "iso2": "SE",
     "status": "legal",
     "info": "No prohibition on ransom payments in Sweden. Cybersecurity Act (Cybersäkerhetslagen SFS 2025:1506) entered into force January 15, 2026, transposing NIS2. Incident reporting: 24-hour early warning → 72-hour notification → 1-month final report for significant incidents.",
     "citations": [
@@ -474,6 +490,7 @@
   },
   "DNK": {
     "name": "Denmark",
+    "iso2": "DK",
     "status": "legal",
     "info": "No prohibition on ransom payments in Denmark. Cybersikkerhedsloven (Law No. 434 of 6 May 2025) in force since July 1, 2025. Incident reporting follows NIS2 timelines (24/72 hours). An EU Commission proposal — not yet law — would additionally require reporting whether a ransom was paid.",
     "citations": [
@@ -489,6 +506,7 @@
   },
   "FIN": {
     "name": "Finland",
+    "iso2": "FI",
     "status": "legal",
     "info": "No prohibition on ransom payments in Finland. Cybersecurity Act 124/2025 entered into force April 8, 2025. Traficom's Cyber Security Centre is the single point of contact. Incident reporting: 24-hour early warning → 72-hour notification → final report.",
     "citations": [
@@ -500,6 +518,7 @@
   },
   "AUT": {
     "name": "Austria",
+    "iso2": "AT",
     "status": "legal",
     "info": "No prohibition on ransom payments in Austria. NISG 2026 published December 23, 2025, enters into force October 1, 2026, transposing NIS2. Covers medium and large enterprises in NIS2 annex sectors. Incident reporting and registration obligations per NIS2 framework.",
     "citations": [
@@ -511,6 +530,7 @@
   },
   "POL": {
     "name": "Poland",
+    "iso2": "PL",
     "status": "legal",
     "info": "No prohibition on ransom payments in Poland. Amendment to the National Cybersecurity System (KSC) Act entered into force April 3, 2026. UODO (personal data protection authority) breach notification within 72 hours. NIS2 incident reporting for essential/important entities per directive timelines.",
     "citations": [
@@ -522,6 +542,7 @@
   },
   "CZE": {
     "name": "Czech Republic",
+    "iso2": "CZ",
     "status": "legal",
     "info": "No specific law prohibiting ransom payments in the Czech Republic. NÚKIB strongly advises against paying ransoms. New Cybersecurity Act No. 264/2025 Coll. is effective November 1, 2025. Ransomware incidents must be reported to NÚKIB or national CSIRT within 24 hours. Public sector entities face practical barriers due to public procurement rules.",
     "citations": [
@@ -533,6 +554,7 @@
   },
   "HUN": {
     "name": "Hungary",
+    "iso2": "HU",
     "status": "legal",
     "info": "No prohibition on ransom payments in Hungary. New cybersecurity law transposing NIS2 entered into force January 1, 2025. Incident reporting per NIS2 timelines.",
     "citations": [
@@ -544,6 +566,7 @@
   },
   "ROU": {
     "name": "Romania",
+    "iso2": "RO",
     "status": "legal",
     "info": "No prohibition on ransom payments in Romania. GEO 155 entered into force December 31, 2024; confirmed by Law No. 124/2025 on July 10, 2025. DNSC is the competent authority. Incident reporting per NIS2 framework.",
     "citations": [
@@ -555,6 +578,7 @@
   },
   "PRT": {
     "name": "Portugal",
+    "iso2": "PT",
     "status": "legal",
     "info": "No prohibition on ransom payments in Portugal. Decreto-Lei n.º 125/2025 published December 4, 2025; in force April 3, 2026. CNCS is the national cybersecurity authority. Incident reporting per NIS2 framework.",
     "citations": [
@@ -566,6 +590,7 @@
   },
   "GRC": {
     "name": "Greece",
+    "iso2": "GR",
     "status": "legal",
     "info": "No prohibition on ransom payments in Greece. Law 5160/2024 entered into force November 27, 2024, transposing NIS2. Incident reporting per NIS2 timelines.",
     "citations": [
@@ -577,6 +602,7 @@
   },
   "IRL": {
     "name": "Ireland",
+    "iso2": "IE",
     "status": "legal",
     "info": "No prohibition on ransom payments in Ireland. Ireland missed the October 2024 NIS2 transposition deadline and is subject to EU infringement proceedings. A National Cybersecurity Bill is pending. The NCSC currently operates a voluntary NIS2 guidance framework ahead of legislation.",
     "citations": [
@@ -592,6 +618,7 @@
   },
   "ISR": {
     "name": "Israel",
+    "iso2": "IL",
     "status": "complicated",
     "info": "No specific prohibition on paying ransoms in Israel. Critical infrastructure organizations (energy, hospitals, major banks, telecoms) must report to the Israel National Cyber Directorate (INCD) in real-time when there is 'potential grave damage'. Non-critical organizations: voluntary reporting to INCD hotline (119). The Privacy Protection Authority breach notification form requires disclosure of whether a ransom demand is involved. A comprehensive National Cyber Law has stalled; full passage is unlikely before 2027.",
     "citations": [
@@ -603,6 +630,7 @@
   },
   "ARE": {
     "name": "United Arab Emirates",
+    "iso2": "AE",
     "status": "complicated",
     "info": "No explicit prohibition on ransom payments under UAE law. Federal Decree-Law No. 6 of 2025 (Central Bank): Article 149 mandates prompt reporting of confirmed fraud and security breaches to the Central Bank. The UAE Data Office requires immediate reporting of personal data breaches. Key complication: payments to US-sanctioned threat actors (many Russia-based groups) create OFAC exposure for UAE organizations. Cybercrime Law (Federal Decree Law No. 34/2021) criminalizes unauthorized access but does not explicitly address paying a ransom.",
     "citations": [
@@ -614,6 +642,7 @@
   },
   "SAU": {
     "name": "Saudi Arabia",
+    "iso2": "SA",
     "status": "complicated",
     "info": "No explicit prohibition on ransom payments found in Saudi law. Cyber incident response is a binding obligation under NCA Essential Cybersecurity Controls (ECC-2) and the SAMA Cybersecurity Framework for financial institutions. Regulated entities must follow defined incident handling, escalation, and regulatory reporting processes. Key risk: payments to US-sanctioned actors carry potential OFAC liability.",
     "citations": [
@@ -629,42 +658,49 @@
   },
   "BHR": {
     "name": "Bahrain",
+    "iso2": "BH",
     "status": "unknown",
     "info": "No specific law addressing ransomware payments found in Bahrain. General cybercrime legislation exists but no evidence of specific ransom payment restrictions.",
     "citations": []
   },
   "QAT": {
     "name": "Qatar",
+    "iso2": "QA",
     "status": "unknown",
     "info": "No specific law addressing ransomware payments found in Qatar. Stringent data protection laws are in place.",
     "citations": []
   },
   "KWT": {
     "name": "Kuwait",
+    "iso2": "KW",
     "status": "unknown",
     "info": "No specific law addressing ransomware payments found in Kuwait.",
     "citations": []
   },
   "JOR": {
     "name": "Jordan",
+    "iso2": "JO",
     "status": "unknown",
     "info": "Jordan enacted a Cybercrime Law in 2023. No evidence of specific ransomware payment restrictions found.",
     "citations": []
   },
   "EGY": {
     "name": "Egypt",
+    "iso2": "EG",
     "status": "unknown",
     "info": "Egypt endorsed the International Counter Ransomware Initiative Joint Statement in October 2024 (non-binding commitment to discourage payments). No specific law prohibiting or mandating reporting of ransom payments found.",
     "citations": []
   },
   "MAR": {
     "name": "Morocco",
+    "iso2": "MA",
     "status": "unknown",
     "info": "No specific ransomware payment law found. Morocco is strengthening its cybersecurity framework.",
     "citations": []
   },
   "JPN": {
     "name": "Japan",
+    "iso2": "JP",
     "status": "complicated",
     "info": "General ransom payments are not legally prohibited in Japan. However, since December 2022, payments to specific government-designated cyberattack groups (identified by crypto-asset addresses) are prohibited. Most Japanese cyber insurance policies do not cover ransom payments in practice. The Active Cyber Defense Act (ACDA, enacted May 2025) introduces new incident reporting obligations for critical infrastructure operators, effective November 2026.",
     "citations": [
@@ -680,6 +716,7 @@
   },
   "KOR": {
     "name": "South Korea",
+    "iso2": "KR",
     "status": "legal",
     "info": "No specific law prohibiting ransom payments in South Korea. The government officially warns organizations not to pay ransomware demands. KISA (Korea Internet & Security Agency) handles breach reporting. Note: DPRK-linked ransomware groups are subject to OFAC sanctions, creating liability risk for payments to those specific actors.",
     "citations": [
@@ -695,6 +732,7 @@
   },
   "IND": {
     "name": "India",
+    "iso2": "IN",
     "status": "complicated",
     "info": "Paying a ransom is not explicitly prohibited in India, but significant legal risks exist. International crypto payments may violate FEMA (Foreign Exchange Management Act 1999, Section 3). Payments could theoretically constitute abetment of crime (Indian Penal Code Section 107), though this is not settled law. CERT-In Directions 2022 (under Section 70B, IT Act 2000): mandatory reporting of ransomware incidents to CERT-In within 6 hours of detection. Non-compliance: up to 1 year imprisonment or ₹1 Lakh fine. The Digital Personal Data Protection Act (DPDPA) 2023 also requires data breach notification.",
     "citations": [
@@ -710,6 +748,7 @@
   },
   "CHN": {
     "name": "China",
+    "iso2": "CN",
     "status": "report",
     "info": "Ransom payments are legally permitted in China; cyber extortion losses (including ransom payments) are explicitly insurable under Cybersecurity Insurance Guidelines. However, under the new Cybersecurity Incident Reporting Measures (CAC, in force November 1, 2025), ransomware incident reports must include the demanded ransom amount, the payment method, and the date. Reporting timelines: critical infrastructure within 1 hour; other commercial entities within 4 hours; post-incident report within 30 days.",
     "citations": [
@@ -725,6 +764,7 @@
   },
   "TWN": {
     "name": "Taiwan",
+    "iso2": "TW",
     "status": "legal",
     "info": "Organizations in Taiwan are allowed to pay ransoms. Paying a ransom is not prohibited by law. Mandatory incident reporting under the Cyber Security Management Act (CMA) applies to government agencies and designated critical infrastructure operators. Most private companies outside critical infrastructure are not subject to mandatory CMA reporting.",
     "citations": [
@@ -736,6 +776,7 @@
   },
   "HKG": {
     "name": "Hong Kong",
+    "iso2": "HK",
     "status": "legal",
     "info": "No prohibition on ransom payments under current Hong Kong law. The Protection of Critical Infrastructures (Computer Systems) Ordinance was passed March 19, 2025 and entered into force January 1, 2026 — Hong Kong's first dedicated cybersecurity law for critical infrastructure. No mandatory payment reporting currently; PCPD breach notification is voluntary.",
     "citations": [
@@ -747,6 +788,7 @@
   },
   "IDN": {
     "name": "Indonesia",
+    "iso2": "ID",
     "status": "complicated",
     "info": "No explicit law prohibiting ransom payments in Indonesia. Key risk: Law No. 9/2013 (Prevention and Eradication of Terrorism Financing) — if the recipient is a designated terrorist, payment carries up to 15 years imprisonment and IDR 1 billion fine. BSSN Regulation 1/2024: high-risk/high-impact incidents must be reported to BSSN and MOCDA within 24 hours. Personal data breaches under the PDP Law: notification within 3×24 hours.",
     "citations": [
@@ -758,6 +800,7 @@
   },
   "MYS": {
     "name": "Malaysia",
+    "iso2": "MY",
     "status": "legal",
     "info": "No explicit prohibition on ransom payments in Malaysia. Cyber Security Act 2024 (CSA): National Critical Information Infrastructure (NCII) entities must notify NACSA of incidents. Failure to report: fine up to RM 500,000, imprisonment up to 10 years, or both. Personal Data Protection (Amendment) Act 2024: 72-hour breach notification to Commissioner.",
     "citations": [
@@ -773,6 +816,7 @@
   },
   "THA": {
     "name": "Thailand",
+    "iso2": "TH",
     "status": "legal",
     "info": "No explicit prohibition on paying ransoms in Thailand. Ransomware deployment is illegal under Section 9 of the Computer Crime Act (targeting attackers, not victims). Cybersecurity Act B.E. 2562 (2019): organizations, especially critical infrastructure, must promptly report cyber incidents to NCSA.",
     "citations": [
@@ -784,6 +828,7 @@
   },
   "PHL": {
     "name": "Philippines",
+    "iso2": "PH",
     "status": "report",
     "info": "No explicit prohibition on ransom payments in the Philippines. However, Critical Information Infrastructure (CII) entities affected by ransomware are required by DICT Memorandum Circular No. 005 to disclose in their mandatory incident reports whether any payments or ransom demands were complied with. The Cybercrime Prevention Act (RA 10175) and National Privacy Commission breach notification rules also apply.",
     "citations": [
@@ -795,6 +840,7 @@
   },
   "NCL": {
     "name": "New Caledonia",
+    "iso2": "NC",
     "status": "legal",
     "info": "New Caledonia is a French Special Collectivity; French national law applies. Under LOPMI (January 2023), there is no prohibition on paying ransoms, but to claim insurance coverage for a ransom payment, organisations must file a criminal complaint with authorities within 72 hours of discovering the attack. ANSSI recommends against payment.",
     "citations": [
@@ -806,6 +852,7 @@
   },
   "RUS": {
     "name": "Russia",
+    "iso2": "RU",
     "status": "unknown",
     "info": "Russia has no law prohibiting its own organizations from paying ransoms. However, Russia hosts many major ransomware groups sanctioned by OFAC (LockBit, BlackCat, etc.); paying these groups creates severe sanctions liability for any non-Russian organization globally. February 2025: Russia introduced tougher cybercrime penalties — directed at perpetrators, not victims. No mandatory civilian reporting of ransom payments to Russian authorities found.",
     "citations": [
@@ -817,6 +864,7 @@
   },
   "UKR": {
     "name": "Ukraine",
+    "iso2": "UA",
     "status": "legal",
     "info": "No prohibition on paying ransoms found in Ukraine. A new Cybersecurity Law entered into force April 20, 2025, aligning Ukraine with the EU NIS2 Directive. SSSCIP (State Service of Special Communications) retains an expanded mandate with increased incident reporting obligations for critical infrastructure.",
     "citations": [
@@ -828,6 +876,7 @@
   },
   "TUR": {
     "name": "Turkey",
+    "iso2": "TR",
     "status": "complicated",
     "info": "No explicit prohibition on ransom payments found in Turkey. Cybersecurity Law No. 7545 (in force March 19, 2025) imposes strict cybersecurity obligations on critical industries (finance, healthcare, energy, telecoms): mandatory advanced security protocols and regular audits overseen by BTK. No explicit ransom payment reporting requirement identified; full implementing regulations are still developing.",
     "citations": [
@@ -843,6 +892,7 @@
   },
   "BRA": {
     "name": "Brazil",
+    "iso2": "BR",
     "status": "legal",
     "info": "No law prohibiting ransom payments in Brazil. LGPD (Lei Geral de Proteção de Dados) and ANPD Regulation CD/ANPD 15/2024: controllers must notify ANPD and affected data subjects within 3 working days of becoming aware of a breach that poses risk or harm. No specific mandatory ransomware payment reporting obligation beyond LGPD breach notification.",
     "citations": [
@@ -854,6 +904,7 @@
   },
   "MEX": {
     "name": "Mexico",
+    "iso2": "MX",
     "status": "legal",
     "info": "No law prohibiting ransom payments in Mexico. Mexico lacks a single comprehensive cybersecurity statute; obligations are distributed across criminal law, data protection, and sector regulation. New LFPDPPP 2025 (private sector, effective March 21, 2025) focuses on data protection, not ransomware payment restrictions. CERT-MX handles incidents upon specific request with no automatic reporting obligation for most entities.",
     "citations": [
@@ -865,6 +916,7 @@
   },
   "ARG": {
     "name": "Argentina",
+    "iso2": "AR",
     "status": "legal",
     "info": "No regulations prohibiting ransom payments in Argentina. Public sector entities covered under Administrative Decision No. 641/2021 must report to CERT.ar within 48 hours of discovery. Private sector: no mandatory reporting obligation. A proposed bill with mandatory reporting has no near-term expectation of passage.",
     "citations": [
@@ -876,6 +928,7 @@
   },
   "COL": {
     "name": "Colombia",
+    "iso2": "CO",
     "status": "legal",
     "info": "No specific law prohibiting ransom payments in Colombia. SIC (Superintendencia de Industria y Comercio): breach notification required within 15 working days of detection if personal data is at risk. Decree 338 of 2022 provides guidelines to strengthen digital security and identify critical infrastructure.",
     "citations": [
@@ -887,6 +940,7 @@
   },
   "CHL": {
     "name": "Chile",
+    "iso2": "CL",
     "status": "legal",
     "info": "No explicit prohibition on ransom payments in Chile. Framework Law on Cybersecurity No. 21.663 entered into force January 1, 2025, creating ANCI (National Cybersecurity Agency). From March 1, 2025, all public and private institutions providing essential services must report significant cybersecurity incidents to ANCI. Chile ranks 4th most ransomware-affected in Latin America.",
     "citations": [
@@ -898,12 +952,14 @@
   },
   "PER": {
     "name": "Peru",
+    "iso2": "PE",
     "status": "unknown",
     "info": "No specific law found addressing ransomware payments in Peru. Data protection regulation entered into force March 30, 2025 covering breach notification. Peru is described as a lagging cybersecurity jurisdiction with no clear national strategy.",
     "citations": []
   },
   "NGA": {
     "name": "Nigeria",
+    "iso2": "NG",
     "status": "legal",
     "info": "No specific law prohibiting ransom payments in Nigeria. Cybercrimes (Prohibition and Prevention) Amendment Act 2024: organizations must report to ngCERT within 72 hours of a cyber incident. Nigeria Data Protection Act 2023: notify NDPC within 72 hours if personal data is at risk. Financial institutions (CBN-supervised) must report within 24 hours.",
     "citations": [
@@ -919,6 +975,7 @@
   },
   "KEN": {
     "name": "Kenya",
+    "iso2": "KE",
     "status": "unknown",
     "info": "Computer Misuse and Cybercrimes (Amendment) Act 2025 strengthens penalties for cybercrime offenses (directed at attackers). No specific ransomware payment restriction or mandatory ransom payment reporting found.",
     "citations": [
@@ -930,6 +987,7 @@
   },
   "GHA": {
     "name": "Ghana",
+    "iso2": "GH",
     "status": "unknown",
     "info": "Cybersecurity (Amendment) Bill 2025 is pending in Parliament; it addresses digital extortion broadly but no specific ransom payment law found. Ghana participated in INTERPOL Operation Sentinel (Oct–Nov 2025) focused on digital extortion.",
     "citations": [

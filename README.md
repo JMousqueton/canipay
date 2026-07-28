@@ -40,6 +40,7 @@ Top-level object keyed by ISO 3166-1 **alpha-3** country code:
 {
   "USA": {
     "name": "United States",
+    "iso2": "US",               // ISO 3166-1 alpha-2, used to fetch the flag from images.ransomware.live/flags/<iso2>.svg
     "status": "complicated",   // see status values below
     "info": "Free-text summary shown in the tooltip and info panel.",
     "citations": [
@@ -69,7 +70,7 @@ A country with no key in `countries.json` (or an unrecognized `status` value) au
 
 ## Adding or updating a country
 
-1. Add/edit an entry in `countries.json` under its ISO alpha-3 code (must match what the GeoJSON source reports as `id`/`ISO_A3`).
+1. Add/edit an entry in `countries.json` under its ISO alpha-3 code (must match what the GeoJSON source reports as `id`/`ISO_A3`), and include the matching `iso2` code (uppercase) for the flag icon.
 2. Keep `info` factual and cite primary or reputable secondary sources (government guidance, major law firms, etc.) in `citations`.
 3. Pick the narrowest accurate `status` — prefer `report`/`complicated` over `legal` when reporting or sanctions obligations materially change the picture.
 4. For the USA only, `stateDetails` entries are matched to the states GeoJSON by exact `name` (e.g. `"Florida"`, `"D.C."`); any US state not listed falls back to `complicated` / "Federal OFAC restrictions apply" (see `getStateInfo()`).
