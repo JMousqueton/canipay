@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Can I Pay? — Ransomware Payment Legality by Country</title>
+  <meta name="description" content="Interactive map showing the legal status of ransomware ransom payments by country. Click any country to see details, citations, and reporting requirements.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="https://stats.mousqueton.io/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '10']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0f1e;
+      color: #e2e8f0;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    /* ── Map ── */
+    #map { position: fixed; inset: 0; z-index: 0; }
+
+    /* ── Header ── */
+    #header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: linear-gradient(to bottom, rgba(10,15,30,0.88) 0%, transparent 100%);
+      height: 72px; padding: 14px 24px 0;
+      display: flex; align-items: flex-start; gap: 16px;
+      pointer-events: none;
+    }
+    #header > * { pointer-events: auto; }
+    .logo {
+      font-size: 1.35rem; font-weight: 800; letter-spacing: -0.03em;
+      color: #f1f5f9; white-space: nowrap; line-height: 1;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+    }
+    .logo .accent { color: #ef4444; }
+    .header-sub {
+      font-size: 0.72rem; color: #94a3b8;
+      border-left: 1px solid rgba(255,255,255,0.12);
+      padding-left: 16px; line-height: 1.4;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.8);
+    }
+    .header-sub strong { color: #cbd5e1; font-weight: 500; }
+    .header-links {
+      margin-left: auto; display: flex; gap: 8px; align-items: center;
+    }
+    .header-links a {
+      font-size: 0.7rem; color: #94a3b8; text-decoration: none;
+      padding: 4px 10px; border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 5px; transition: all 0.15s;
+      background: rgba(10,15,30,0.6); backdrop-filter: blur(8px);
+    }
+    .header-links a:hover { color: #f1f5f9; border-color: rgba(255,255,255,0.3); background: rgba(10,15,30,0.85); }
+    .about-btn {
+      font-size: 0.7rem; color: #94a3b8; cursor: pointer;
+      padding: 4px 10px; border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 5px; transition: all 0.15s; font-family: inherit;
+      background: rgba(10,15,30,0.6); backdrop-filter: blur(8px);
+    }
+    .about-btn:hover { color: #f1f5f9; border-color: rgba(255,255,255,0.3); background: rgba(10,15,30,0.85); }
+
+    /* ── Modal ── */
+    #modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 9000;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center;
+    }
+    #modal-overlay.open { display: flex; }
+    #modal-box {
+      background: #0f172a; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px; padding: 32px 36px; max-width: 520px; width: 90%;
+      position: relative; box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+      max-height: 90vh; overflow-y: auto;
+      scrollbar-width: thin; scrollbar-color: #334155 transparent;
+    }
+    #modal-box h2 {
+      font-size: 1.1rem; font-weight: 700; color: #f1f5f9; margin-bottom: 6px;
+    }
+    #modal-box .modal-sub {
+      font-size: 0.72rem; color: #64748b; margin-bottom: 20px;
+    }
+    #modal-box p {
+      font-size: 0.8rem; color: #94a3b8; line-height: 1.65; margin-bottom: 12px;
+    }
+    #modal-box p:last-of-type { margin-bottom: 0; }
+    #modal-box strong { color: #cbd5e1; }
+    #modal-close {
+      position: absolute; top: 14px; right: 16px;
+      background: none; border: none; color: #475569; cursor: pointer;
+      font-size: 1.3rem; line-height: 1; padding: 4px 6px; border-radius: 4px;
+      transition: color 0.15s;
+    }
+    #modal-close:hover { color: #94a3b8; }
+
+    /* ── Sub-header stats ── */
+    #statsbar { display: none; }
+
+    /* ── Legend ── */
+    #legend {
+      position: fixed; bottom: 28px; left: 24px; z-index: 1000;
+      background: rgba(10,15,30,0.96);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 14px 16px;
+      min-width: 200px;
+    }
+    .legend-title {
+      font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.12em; color: #475569; margin-bottom: 10px;
+    }
+    .legend-item {
+      display: flex; align-items: center; gap: 9px;
+      margin-bottom: 7px; cursor: pointer;
+      border-radius: 4px; padding: 2px 4px; margin-left: -4px;
+      transition: background 0.1s;
+    }
+    .legend-item:hover { background: rgba(255,255,255,0.04); }
+    .legend-swatch { width: 13px; height: 13px; border-radius: 3px; flex-shrink: 0; }
+    .legend-label { font-size: 0.73rem; color: #94a3b8; }
+    .legend-divider { border: none; border-top: 1px solid rgba(255,255,255,0.05); margin: 8px 0; }
+
+    /* ── Info panel ── */
+    #info-panel {
+      position: fixed; top: 24px; right: 24px; bottom: 28px; z-index: 1000;
+      width: 330px;
+      background: rgba(10,15,30,0.97);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      overflow-y: auto; overflow-x: hidden;
+      transform: translateX(calc(100% + 32px));
+      transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+      scrollbar-width: thin; scrollbar-color: #334155 transparent;
+    }
+    #info-panel.open { transform: translateX(0); }
+    #info-panel::-webkit-scrollbar { width: 4px; }
+    #info-panel::-webkit-scrollbar-thumb { background: #334155; border-radius: 2px; }
+
+    .panel-header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(10,15,30,0.98);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 16px 20px 14px;
+    }
+    .panel-country { font-size: 1.05rem; font-weight: 700; color: #f1f5f9; padding-right: 28px; }
+    .panel-close {
+      position: absolute; top: 14px; right: 14px;
+      background: rgba(255,255,255,0.06); border: none; border-radius: 6px;
+      color: #64748b; cursor: pointer; font-size: 1rem; line-height: 1;
+      padding: 4px 7px; transition: all 0.15s;
+    }
+    .panel-close:hover { background: rgba(255,255,255,0.1); color: #94a3b8; }
+
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      margin-top: 8px; padding: 3px 9px; border-radius: 5px;
+      font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .status-badge .badge-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+    .panel-body { padding: 16px 20px; }
+
+    .info-text {
+      font-size: 0.78rem; line-height: 1.65; color: #94a3b8;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.12em; color: #475569; margin-bottom: 8px;
+    }
+
+    .citation-link {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: 0.72rem; color: #3b82f6; text-decoration: none;
+      padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: color 0.15s;
+    }
+    .citation-link:last-child { border-bottom: none; }
+    .citation-link:hover { color: #60a5fa; }
+    .citation-link::before { content: "↗"; font-size: 0.65rem; margin-top: 1px; flex-shrink: 0; }
+
+    .state-breakdown { margin-top: 16px; }
+    .state-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .state-row:last-child { border-bottom: none; }
+    .state-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+    .state-name { font-size: 0.72rem; color: #cbd5e1; min-width: 120px; }
+    .state-status { font-size: 0.65rem; color: #64748b; }
+
+    .disclaimer {
+      font-size: 0.68rem; line-height: 1.6; color: #334155;
+      margin-top: 20px; padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .disclaimer strong { color: #475569; }
+
+    /* ── Default/intro message ── */
+    #intro {
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      z-index: 900; pointer-events: none;
+      text-align: center;
+    }
+    .intro-label {
+      font-size: 0.75rem; color: rgba(148,163,184,0.4); letter-spacing: 0.05em;
+    }
+
+    /* ── Leaflet overrides ── */
+    .leaflet-container { background: #0a0f1e !important; }
+    .leaflet-control-attribution {
+      background: rgba(10,15,30,0.8) !important;
+      color: #334155 !important;
+      font-size: 9px !important;
+    }
+    .leaflet-control-attribution a { color: #475569 !important; }
+    .leaflet-control-zoom {
+      border: 1px solid rgba(255,255,255,0.08) !important;
+      border-radius: 8px !important;
+      overflow: hidden;
+    }
+    .leaflet-control-zoom a {
+      background: rgba(10,15,30,0.95) !important;
+      color: #64748b !important;
+      border-color: rgba(255,255,255,0.06) !important;
+    }
+    .leaflet-control-zoom a:hover {
+      background: rgba(30,41,59,0.98) !important;
+      color: #94a3b8 !important;
+    }
+    .leaflet-popup-content-wrapper {
+      background: rgba(15,23,42,0.97) !important;
+      border: 1px solid rgba(255,255,255,0.08) !important;
+      border-radius: 8px !important; box-shadow: none !important;
+    }
+    .leaflet-popup-content { color: #94a3b8 !important; margin: 10px 14px !important; }
+    .leaflet-popup-tip { background: rgba(15,23,42,0.97) !important; }
+
+    /* ── Hover tooltip ── */
+    #hover-tip {
+      position: fixed; z-index: 2000; pointer-events: none;
+      background: rgba(10,15,30,0.97);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 10px 13px;
+      display: none; max-width: 380px;
+    }
+    .tip-name { font-size: 0.8rem; font-weight: 700; color: #f1f5f9; margin-bottom: 4px; }
+    .tip-status { font-size: 0.68rem; display: flex; align-items: center; gap: 5px; margin-bottom: 6px; }
+    .tip-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .tip-label { color: #94a3b8; font-weight: 600; }
+    .tip-info { font-size: 0.69rem; color: #64748b; line-height: 1.5; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 6px; }
+    .tip-sources {
+      font-size: 0.67rem; color: #475569; margin-top: 7px;
+      border-top: 1px solid rgba(255,255,255,0.06); padding-top: 6px;
+    }
+    .tip-sources a {
+      color: #60a5fa; text-decoration: none; margin-left: 2px;
+      pointer-events: auto;
+    }
+    .tip-sources a:hover { text-decoration: underline; }
+
+    /* ── Mobile ── */
+    @media (max-width: 600px) {
+      #header { padding: 0 14px; height: 50px; }
+      .logo { font-size: 1.1rem; }
+      .header-sub, .header-links { display: none; }
+      #statsbar { padding: 5px 14px; gap: 12px; }
+      #info-panel {
+        top: auto; right: 0; left: 0; bottom: 0;
+        width: 100%; border-radius: 16px 16px 0 0;
+        max-height: 65vh; transform: translateY(100%);
+      }
+      #info-panel.open { transform: translateY(0); }
+      #legend { bottom: 14px; left: 14px; }
+      #modal-overlay { align-items: flex-end; }
+      #modal-box {
+        width: 100%; max-width: 100%; max-height: 85vh;
+        border-radius: 20px 20px 0 0; padding: 24px 20px 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<header id="header">
+  <div class="logo">Can<span class="accent">I</span>Pay<span class="accent">?</span></div>
+  <div class="header-sub">Is it legal to pay a ransomware demand in <strong>your country?</strong></div>
+  <div class="header-links">
+    <button class="about-btn" id="about-btn">About</button>
+    <a href="https://www.ransomware.live" target="_blank" rel="noopener">ransomware.live ↗</a>
+  </div>
+</header>
+
+<div id="modal-overlay">
+  <div id="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button id="modal-close" aria-label="Close">×</button>
+    <h2 id="modal-title">About — Can I Pay?</h2>
+    <div class="modal-sub">Ransomware payment legality by country</div>
+    <p><strong>Disclaimer — no legal advice.</strong> The information on this map is provided for general informational purposes only and does not constitute legal advice. Laws and regulations change frequently; always verify with a qualified legal counsel in the relevant jurisdiction before making any decision.</p>
+    <p><strong>Sanctions and designated entities.</strong> This tool does not address, and expressly excludes from its scope, any payment made to a threat actor, group, or entity that is the subject of economic sanctions, asset-freeze measures, or similar restrictive designations issued by any competent authority (including, without limitation, the U.S. Office of Foreign Assets Control (OFAC), the EU, the UN Security Council, or equivalent national bodies). Regardless of the general legal status of ransom payments in a given jurisdiction, making any payment — directly or indirectly — to a sanctioned individual, group, or state-affiliated actor may constitute a strict-liability violation of applicable sanctions law, irrespective of knowledge or intent. Users are solely responsible for conducting their own sanctions screening prior to any payment.</p>
+    <p>The authors make <strong>no representations or warranties</strong> of any kind, express or implied, as to the accuracy, completeness, or timeliness of the data presented. Reliance on any information on this site is solely at your own risk.</p>
+    <p>This tool is maintained by <a href="https://www.ransomware.live" target="_blank" rel="noopener" style="color:#7dd3fc;text-decoration:none;">ransomware.live</a> as a community resource. The original concept is based on <a href="https://github.com/rkovar/ransomwarelegality" target="_blank" rel="noopener" style="color:#7dd3fc;text-decoration:none;">rkovar/ransomwarelegality</a>.</p>
+    <p style="color:#475569;font-size:0.72rem;margin-top:16px;">Last reviewed: June 2026</p>
+  </div>
+</div>
+
+<div id="statsbar">
+  <!-- populated by JS -->
+</div>
+
+<div id="legend">
+  <div class="legend-title">Payment Status</div>
+  <div class="legend-item" data-filter="illegal">
+    <div class="legend-swatch" style="background:#ef4444"></div>
+    <span class="legend-label">Illegal to pay</span>
+  </div>
+  <div class="legend-item" data-filter="legal">
+    <div class="legend-swatch" style="background:#22c55e"></div>
+    <span class="legend-label">Legal to pay</span>
+  </div>
+  <div class="legend-item" data-filter="report">
+    <div class="legend-swatch" style="background:#a855f7"></div>
+    <span class="legend-label">Legal, but must report</span>
+  </div>
+  <div class="legend-item" data-filter="complicated">
+    <div class="legend-swatch" style="background:#eab308"></div>
+    <span class="legend-label">It's complicated</span>
+  </div>
+  <hr class="legend-divider">
+  <div class="legend-item">
+    <div class="legend-swatch" style="background:#1e293b; border: 1px solid #334155"></div>
+    <span class="legend-label" style="color:#475569">Unknown / no data</span>
+  </div>
+  <hr class="legend-divider">
+  <div style="font-size:0.62rem;color:#334155;line-height:1.5">
+    Original concept by <a href="https://github.com/rkovar/ransomwarelegality" target="_blank" rel="noopener" style="color:#475569;text-decoration:none">rkovar/ransomwarelegality</a>
+  </div>
+</div>
+
+<div id="hover-tip"></div>
+
+<div id="info-panel">
+  <div class="panel-header">
+    <div class="panel-country" id="panel-country">Select a country</div>
+    <button class="panel-close" id="panel-close" aria-label="Close">×</button>
+    <div id="panel-badge"></div>
+  </div>
+  <div class="panel-body" id="panel-body">
+    <p class="info-text">Click any country on the map to see whether paying a ransomware demand is legal in that jurisdiction, along with official citations and reporting requirements.</p>
+    <p class="disclaimer"><strong>Disclaimer:</strong> This is not legal advice. Laws change. Always consult qualified local legal counsel before making any decisions about ransomware payments.</p>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// ─── Country data ─────────────────────────────────────────────────────────────
+
+const STATUS = {
+  illegal:     { label: "Illegal to pay",         color: "#ef4444", bg: "rgba(239,68,68,0.15)",   text: "#fca5a5" },
+  legal:       { label: "Legal to pay",            color: "#22c55e", bg: "rgba(34,197,94,0.15)",   text: "#86efac" },
+  report:      { label: "Legal — must report",     color: "#a855f7", bg: "rgba(168,85,247,0.15)",  text: "#d8b4fe" },
+  complicated: { label: "It's complicated",        color: "#eab308", bg: "rgba(234,179,8,0.15)",   text: "#fde047" },
+};
+
+const OFAC_INFO = "The U.S. government strongly discourages all private companies and citizens from paying ransom or extortion demands and recommends focusing on strengthening defensive and resilience measures to prevent and protect against ransomware attacks. OFAC may impose civil penalties for sanctions violations based on strict liability, meaning that a person subject to U.S. jurisdiction may be held civilly liable even if such person did not know or have reason to know that it was engaging in a transaction that was prohibited under sanctions laws and regulations administered by OFAC.";
+
+let COUNTRIES = {};
+
+(async () => {
+COUNTRIES = await fetch('countries.json').then(r => r.json());
+
+// ─── Map ──────────────────────────────────────────────────────────────────────
+
+const WORLD_BOUNDS = L.latLngBounds([[-90, -180], [90, 180]]);
+
+const map = L.map('map', {
+  minZoom: 2,
+  maxZoom: 7,
+  zoomControl: false,
+  attributionControl: true,
+  maxBounds: WORLD_BOUNDS,
+  maxBoundsViscosity: 1.0,
+});
+map.fitBounds([[-70, -170], [80, 190]], { padding: [0, 0] });
+map.setZoom(map.getZoom() + 1);
+
+L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+// CartoDB dark — no labels, clean basemap
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  subdomains: 'abcd',
+  maxZoom: 20,
+  noWrap: true,
+}).addTo(map);
+
+
+// ─── GeoJSON choropleth ───────────────────────────────────────────────────────
+
+let geojsonLayer = null;
+let activeLayer = null;
+
+const tip = document.getElementById('hover-tip');
+
+function buildSourcesHtml(citations) {
+  if (!citations?.length) return '';
+  const links = citations.map((c, i) =>
+    `<a href="${c.url}" title="${c.label}" target="_blank" rel="noopener">#${i + 1}</a>`
+  ).join(', ');
+  return `<div class="tip-sources">Source: ${links}</div>`;
+}
+
+function showTip(e, feature) {
+  const { entry } = getCountryEntry(feature);
+  const name = entry?.name || feature.properties?.name || feature.id || '';
+  const statusObj = (entry && STATUS[entry.status]) || null;
+  const color = statusObj ? statusObj.color : '#475569';
+  const label = statusObj ? statusObj.label : 'Unknown / No data';
+  const info = entry?.info || '';
+  tip.innerHTML = `<div class="tip-name">${name}</div>
+    <div class="tip-status"><span class="tip-dot" style="background:${color}"></span><span class="tip-label">${label}</span></div>
+    ${info ? `<div class="tip-info">${info}</div>` : ''}
+    ${buildSourcesHtml(entry?.citations)}`;
+  tip.style.display = 'block';
+  moveTip(e);
+}
+
+function moveTip(e) {
+  const x = e.originalEvent.clientX;
+  const y = e.originalEvent.clientY;
+  const tw = tip.offsetWidth, th = tip.offsetHeight;
+  tip.style.left = (x + 14 + tw > window.innerWidth ? x - tw - 10 : x + 14) + 'px';
+  tip.style.top  = (y + 14 + th > window.innerHeight ? y - th - 10 : y + 14) + 'px';
+}
+
+function hideTip() { tip.style.display = 'none'; }
+
+function getCountryEntry(feature) {
+  // Try multiple property paths used by different GeoJSON sources
+  const code = feature.id
+    || feature.properties?.ISO_A3
+    || feature.properties?.iso_a3
+    || feature.properties?.ADM0_A3;
+  return { code, entry: COUNTRIES[code] || null };
+}
+
+function featureStyle(feature, highlighted) {
+  const { entry } = getCountryEntry(feature);
+  const statusObj = (entry && STATUS[entry.status]) || null;
+  const color = statusObj ? statusObj.color : '#1e293b';
+  return {
+    fillColor: color,
+    fillOpacity: highlighted ? 0.9 : (statusObj ? 0.65 : 0.2),
+    color: highlighted ? '#ffffff' : '#0a0f1e',
+    weight: highlighted ? 1.5 : 0.6,
+  };
+}
+
+function showPanel(feature) {
+  const { code, entry } = getCountryEntry(feature);
+  const name = entry?.name || feature.properties?.name || feature.properties?.NAME || code || 'Unknown';
+
+  document.getElementById('panel-country').textContent = name;
+
+  const s = entry ? STATUS[entry.status] : null;
+  const badge = document.getElementById('panel-badge');
+  if (s) {
+    badge.innerHTML = `<span class="status-badge" style="background:${s.bg};color:${s.text}">
+      <span class="badge-dot" style="background:${s.color}"></span>${s.label}
+    </span>`;
+  } else {
+    badge.innerHTML = `<span class="status-badge" style="background:rgba(255,255,255,0.05);color:#475569">
+      <span class="badge-dot" style="background:#334155"></span>Unknown / No data
+    </span>`;
+  }
+
+  const body = document.getElementById('panel-body');
+  if (!entry) {
+    body.innerHTML = `
+      <p class="info-text">No data available for this country yet. Legal status of ransomware payments is unknown or has not been documented.</p>
+      <p class="info-text" style="color:#475569;font-size:0.72rem">If you have reliable information about this jurisdiction, consider contributing to the <a href="https://github.com/rkovar/ransomwarelegality" target="_blank" rel="noopener" style="color:#3b82f6">source dataset on GitHub</a>.</p>
+      <p class="disclaimer"><strong>Disclaimer:</strong> This is not legal advice. Always consult qualified local legal counsel.</p>`;
+  } else {
+    let html = `<p class="info-text">${entry.info}</p>`;
+
+    // US state breakdown
+    if (entry.stateDetails) {
+      html += `<div class="state-breakdown">
+        <div class="section-title">State-by-state breakdown</div>`;
+      for (const s of entry.stateDetails) {
+        const sObj = STATUS[s.status] || STATUS.complicated;
+        const display = s.note ? `${sObj.label} — ${s.note}` : sObj.label;
+        html += `<div class="state-row">
+          <div class="state-dot" style="background:${sObj.color}"></div>
+          <div class="state-name">${s.name}</div>
+          <div class="state-status">${display}</div>
+        </div>`;
+      }
+      html += `</div>`;
+    }
+
+    if (entry.citations?.length) {
+      html += `<div style="margin-top:16px"><div class="section-title">Sources &amp; citations</div>`;
+      for (const c of entry.citations) {
+        html += `<a class="citation-link" href="${c.url}" target="_blank" rel="noopener">${c.label}</a>`;
+      }
+      html += `</div>`;
+    }
+
+    html += `<p class="disclaimer"><strong>Disclaimer:</strong> This information is provided for general awareness only and does not constitute legal advice. Laws change; always consult qualified local legal counsel before making decisions about ransomware payments.</p>`;
+    body.innerHTML = html;
+  }
+
+  document.getElementById('info-panel').classList.add('open');
+}
+
+function resetHighlight(layer) {
+  if (!layer) return;
+  if (layer._isUSState && usLayer) usLayer.resetStyle(layer);
+  else if (geojsonLayer) geojsonLayer.resetStyle(layer);
+}
+
+fetch('https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/DATA/world.geojson')
+  .then(r => r.json())
+  .then(data => {
+    geojsonLayer = L.geoJson(data, {
+      style: feature => featureStyle(feature, false),
+      onEachFeature(feature, layer) {
+        layer.on({
+          mouseover(e) {
+            if (e.target !== activeLayer) {
+              e.target.setStyle({ fillOpacity: 0.85, weight: 1.2, color: '#94a3b8' });
+            }
+            e.target.bringToFront();
+            showTip(e, feature);
+          },
+          mousemove(e) {
+            moveTip(e);
+          },
+          mouseout(e) {
+            if (e.target !== activeLayer) resetHighlight(e.target);
+            hideTip();
+          },
+          click(e) {
+            if (activeLayer && activeLayer !== e.target) resetHighlight(activeLayer);
+            activeLayer = e.target;
+            e.target.setStyle(featureStyle(feature, true));
+            e.target.bringToFront();
+            showPanel(feature);
+          }
+        });
+      }
+    }).addTo(map);
+
+    updateStats(data);
+    loadUSStates();
+  })
+  .catch(err => {
+    console.error('Failed to load GeoJSON:', err);
+  });
+
+// ─── US states overlay ────────────────────────────────────────────────────────
+
+// Build a fast lookup from countries.json stateDetails
+const US_STATE_INDEX = Object.fromEntries(
+  (COUNTRIES.USA?.stateDetails || []).map(s => [s.name, s])
+);
+
+function getStateInfo(name) {
+  const s = US_STATE_INDEX[name];
+  if (!s) return { statusObj: STATUS.complicated, note: 'Federal OFAC restrictions apply' };
+  return { statusObj: STATUS[s.status] || STATUS.complicated, note: s.note || '' };
+}
+
+let usLayer = null;
+
+function stateStyle(feature, highlighted) {
+  const { statusObj } = getStateInfo(feature.properties.name);
+  return {
+    fillColor: statusObj.color,
+    fillOpacity: highlighted ? 0.9 : 0.65,
+    color: highlighted ? '#ffffff' : '#0a0f1e',
+    weight: highlighted ? 1.5 : 0.6,
+  };
+}
+
+function loadUSStates() {
+  fetch('https://cdn.jsdelivr.net/gh/PublicaMundi/MappingAPI@master/data/geojson/us-states.json')
+    .then(r => r.json())
+    .then(data => {
+      usLayer = L.geoJson(data, {
+        style: feature => stateStyle(feature, false),
+        onEachFeature(feature, layer) {
+          layer.on({
+            mouseover(e) {
+              if (e.target !== activeLayer) {
+                e.target.setStyle({ fillOpacity: 0.9, weight: 1.2, color: '#94a3b8' });
+              }
+              e.target.bringToFront();
+              // show state-specific tooltip
+              const name = feature.properties.name;
+              const { statusObj, note } = getStateInfo(name);
+              const label = statusObj.label + (note ? ` — ${note}` : '');
+              const stateEntry = US_STATE_INDEX[name];
+              tip.innerHTML = `<div class="tip-name">${name} <span style="color:#64748b;font-weight:400;font-size:0.7rem">(United States)</span></div>
+                <div class="tip-status"><span class="tip-dot" style="background:${statusObj.color}"></span><span class="tip-label">${label}</span></div>
+                ${buildSourcesHtml(stateEntry?.citations)}`;
+              tip.style.display = 'block';
+              moveTip(e);
+            },
+            mousemove(e) { moveTip(e); },
+            mouseout(e) {
+              if (e.target !== activeLayer) usLayer.resetStyle(e.target);
+              hideTip();
+            },
+            click(e) {
+              if (activeLayer && activeLayer !== e.target) {
+                if (activeLayer._isUSState) usLayer.resetStyle(activeLayer);
+                else resetHighlight(activeLayer);
+              }
+              activeLayer = e.target;
+              activeLayer._isUSState = true;
+              e.target.setStyle(stateStyle(feature, true));
+              e.target.bringToFront();
+              showPanel({ id: 'USA', properties: { name: 'United States' } });
+            }
+          });
+        }
+      }).addTo(map);
+
+      // Hide the single USA polygon in the world layer
+      geojsonLayer.eachLayer(l => {
+        if (l.feature?.id === 'USA') {
+          l.setStyle({ fillOpacity: 0, weight: 0 });
+          l.off(); // disable its mouse events
+        }
+      });
+    })
+    .catch(err => console.error('Failed to load US states:', err));
+}
+
+// ─── Stats bar ────────────────────────────────────────────────────────────────
+
+function updateStats(geojsonData) {
+  const counts = { illegal: 0, legal: 0, report: 0, complicated: 0, unknown: 0 };
+
+  if (geojsonData?.features) {
+    for (const f of geojsonData.features) {
+      const code = f.id || f.properties?.ISO_A3;
+      const entry = COUNTRIES[code];
+      if (entry) counts[entry.status] = (counts[entry.status] || 0) + 1;
+      else counts.unknown++;
+    }
+  }
+
+  const bar = document.getElementById('statsbar');
+  const items = [
+    { key: 'illegal',     label: 'Illegal',      color: '#ef4444' },
+    { key: 'legal',       label: 'Legal',        color: '#22c55e' },
+    { key: 'report',      label: 'Must report',  color: '#a855f7' },
+    { key: 'complicated', label: 'Complicated',  color: '#eab308' },
+    { key: 'unknown',     label: 'Unknown',      color: '#334155' },
+  ];
+
+  bar.innerHTML = items.map(i => `
+    <div class="stat-chip">
+      <div class="dot" style="background:${i.color}"></div>
+      <span class="count">${counts[i.key]}</span>
+      <span>${i.label}</span>
+    </div>
+  `).join('');
+}
+
+// ─── Panel close ──────────────────────────────────────────────────────────────
+
+document.getElementById('panel-close').addEventListener('click', () => {
+  document.getElementById('info-panel').classList.remove('open');
+  if (activeLayer) {
+    resetHighlight(activeLayer);
+    activeLayer = null;
+  }
+});
+
+// Close panel on map click (not on country)
+map.on('click', () => {
+  document.getElementById('info-panel').classList.remove('open');
+  if (activeLayer) {
+    resetHighlight(activeLayer);
+    activeLayer = null;
+  }
+});
+
+})();
+
+// ─── About modal ──────────────────────────────────────────────────────────────
+
+const modalOverlay = document.getElementById('modal-overlay');
+
+function closeModal() {
+  modalOverlay.classList.remove('open');
+  document.cookie = 'canipay_seen=1; max-age=31536000; path=/; SameSite=Lax';
+}
+
+function openModal() { modalOverlay.classList.add('open'); }
+
+document.getElementById('about-btn').addEventListener('click', openModal);
+document.getElementById('modal-close').addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', e => { if (!e.target.closest('#modal-box')) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// Show on first visit (no cookie set yet)
+if (!document.cookie.split(';').some(c => c.trim().startsWith('canipay_seen='))) {
+  openModal();
+}
+</script>
+</body>
+</html>
