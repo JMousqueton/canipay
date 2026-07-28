@@ -1,4 +1,4 @@
-# Can I Pay?
+# 💰 Can I Pay Ransomware?
 
 A static, single-page interactive world map showing whether paying a ransomware demand is legal in a given country — along with reporting obligations, sanctions exposure, and official citations for each jurisdiction.
 
