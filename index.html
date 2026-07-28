@@ -3,9 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Can I Pay? — Ransomware Payment Legality by Country</title>
-  <meta name="description" content="Interactive map showing the legal status of ransomware ransom payments by country. Click any country to see details, citations, and reporting requirements.">
+  <title>Can I Pay Ransomware? — Payment Legality by Country | ransomware.live</title>
+  <meta name="description" content="Is it legal to pay a ransomware ransom in your country? Interactive world map covering payment legality, mandatory reporting, and sanctions exposure for 58+ countries, with official citations. Not legal advice.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="ransomware.live">
+  <meta name="theme-color" content="#0a0f1e">
+  <link rel="canonical" href="https://canipay.ransomware.live/">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://canipay.ransomware.live/">
+  <meta property="og:site_name" content="ransomware.live">
+  <meta property="og:title" content="💰 Can I Pay Ransomware? — Payment Legality by Country">
+  <meta property="og:description" content="Is it legal to pay a ransomware ransom in your country? Interactive world map covering payment legality, mandatory reporting, and sanctions exposure for 58+ countries, with official citations.">
+  <meta property="og:image" content="https://images.ransomware.live/ransomware.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="💰 Can I Pay Ransomware? — Payment Legality by Country">
+  <meta name="twitter:description" content="Is it legal to pay a ransomware ransom in your country? Interactive world map covering payment legality, mandatory reporting, and sanctions exposure for 58+ countries, with official citations.">
+  <meta name="twitter:image" content="https://images.ransomware.live/ransomware.png">
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <!-- Matomo -->
   <script>
     var _paq = window._paq = window._paq || [];
@@ -224,6 +244,13 @@
     }
     .disclaimer strong { color: #475569; }
 
+    /* ── Visually hidden but crawlable/accessible (not display:none) ── */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+
     /* ── Default/intro message ── */
     #intro {
       position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -307,13 +334,34 @@
       }
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "Can I Pay Ransomware? — Ransom Payment Legality by Country",
+    "description": "A dataset covering the legal status of paying ransomware demands, mandatory incident/payment reporting obligations, and sanctions exposure, by country.",
+    "url": "https://canipay.ransomware.live/",
+    "isAccessibleForFree": true,
+    "creator": {
+      "@type": "Organization",
+      "name": "ransomware.live",
+      "url": "https://www.ransomware.live"
+    },
+    "keywords": ["ransomware", "ransom payment", "cybersecurity law", "sanctions", "OFAC", "incident reporting", "NIS2"],
+    "distribution": {
+      "@type": "DataDownload",
+      "encodingFormat": "application/json",
+      "contentUrl": "https://canipay.ransomware.live/countries.json"
+    }
+  }
+  </script>
 </head>
 <body>
 
 <div id="map"></div>
 
 <header id="header">
-  <div class="logo">Can<span class="accent">I</span>Pay<span class="accent">?</span></div>
+  <h1 class="logo">Can<span class="accent">I</span>Pay<span class="accent">?</span></h1>
   <div class="header-sub">Is it legal to pay a ransomware demand in <strong>your country?</strong></div>
   <div class="header-links">
     <button class="about-btn" id="about-btn">About</button>
@@ -383,6 +431,17 @@
   </div>
 </div>
 
+<!--
+  Text directory of every country's data, kept in the DOM for search engines, screen readers,
+  and anyone without a mouse — the map above only reveals this content on hover/click.
+  Visually hidden (not display:none) so it stays in the accessibility tree and gets crawled.
+-->
+<section id="country-directory" class="sr-only" aria-label="Ransomware payment legality by country — full list">
+  <h2>Is It Legal to Pay a Ransomware Ransom? Country-by-Country Breakdown</h2>
+  <p>Legal status of paying ransomware demands, mandatory incident/payment reporting obligations, and sanctions exposure, by country. Not legal advice — see disclaimer.</p>
+  <div id="directory-list"></div>
+</section>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 // ─── Country data ─────────────────────────────────────────────────────────────
@@ -400,6 +459,7 @@ let COUNTRIES = {};
 
 (async () => {
 COUNTRIES = await fetch('countries.json').then(r => r.json());
+renderDirectory(COUNTRIES);
 
 // ─── Map ──────────────────────────────────────────────────────────────────────
 
@@ -445,6 +505,29 @@ function buildSourcesHtml(citations) {
 function flagHtml(iso2) {
   if (!iso2) return '';
   return `<img class="flag-icon" src="https://images.ransomware.live/flags/${iso2}.svg" alt="" loading="lazy" onerror="this.remove()">`;
+}
+
+function renderDirectory(countries) {
+  const entries = Object.values(countries).sort((a, b) => a.name.localeCompare(b.name));
+  const html = entries.map(entry => {
+    const statusObj = STATUS[entry.status];
+    const statusLabel = statusObj ? statusObj.label : 'Unknown / no data';
+    const citations = (entry.citations || []).map(c =>
+      `<li><a href="${c.url}" target="_blank" rel="noopener">${c.label}</a></li>`
+    ).join('');
+    const states = entry.stateDetails ? `<ul>${entry.stateDetails.map(s => {
+      const sObj = STATUS[s.status] || STATUS.complicated;
+      return `<li>${s.name}: ${sObj.label}${s.note ? ` — ${s.note}` : ''}</li>`;
+    }).join('')}</ul>` : '';
+    return `<article>
+      <h3>${entry.name} — ${statusLabel}</h3>
+      <p>${entry.info}</p>
+      ${states}
+      ${citations ? `<ul>${citations}</ul>` : ''}
+    </article>`;
+  }).join('');
+  const list = document.getElementById('directory-list');
+  if (list) list.innerHTML = html;
 }
 
 function showTip(e, feature) {
